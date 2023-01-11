@@ -1,12 +1,18 @@
 import express from 'express';
-// import data from './data/mock.json' assert {type: 'json'};
+import data from './data/mock.json' assert {type: 'json'};
 
 const app = express();
 const PORT = process.env.PORT || 9000;
 
+//using the public folder at the root of the project
+app.use(express.static('public'))
+
+//using the images folder at the route
+app.use("/images", express.static("images"))
+
 //GET
 app.get("/", (req, res) => {
-    res.send("This is get request");
+    res.json(data)
 })
 
 //POST
