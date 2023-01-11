@@ -10,10 +10,44 @@ app.use(express.static('public'))
 //using the images folder at the route
 app.use("/images", express.static("images"))
 
-//GET
-app.get("/", (req, res) => {
-    res.json(data)
+//GET - next()
+app.get("/", (req, res, next) => {
+    console.log("The response will be sent by the next function");
+    next();
+},
+    (req, res) => {
+      res.send("I just set up a route with a second callback")
+    }
+)
+
+//GET - download method
+app.get("/download", (req, res) => {
+    res.download("images/m2.jpg")
 })
+
+app.route("/class",).get((req, res) => {
+    res.send("Retrieve class info")
+}).post((req, res) => {
+    res.send("creating class info")
+}).put((req, res) => {
+    res.send("update class info")
+})
+
+//GET - redirect method
+app.get("/redirect", (req, res) => {
+    res.redirect("https://www.linkedin.com")
+})
+
+//GET with routing parameters
+// app.get("/class/:id", (req, res) => {
+//     const studentId = Number(req.params.id);
+
+//     const student = data.filter((student) => {
+//         return student.id === studentId
+//     })
+
+//     res.send(student)
+// })
 
 //POST
 app.post("/create", (req, res) => {
