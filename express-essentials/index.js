@@ -10,6 +10,10 @@ app.use(express.static('public'))
 //using the images folder at the route
 app.use("/images", express.static("images"))
 
+//Using 
+// app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+
 //GET - next()
 app.get("/", (req, res, next) => {
     console.log("The response will be sent by the next function");
@@ -20,13 +24,20 @@ app.get("/", (req, res, next) => {
     }
 )
 
+//POST - express.json and express.urlencoded
+app.post("/item", (req, res) => {
+    console.log(req.body);
+    res.send(req.body)
+})
+
 //GET - download method
 app.get("/download", (req, res) => {
     res.download("images/m2.jpg")
 })
 
 app.route("/class",).get((req, res) => {
-    res.send("Retrieve class info")
+    // res.send("Retrieve class info")
+    throw new Error();
 }).post((req, res) => {
     res.send("creating class info")
 }).put((req, res) => {
@@ -62,6 +73,11 @@ app.put("/edit", (req, res) => {
 //Delete
 app.delete("/delete", (req, res) => {
     res.send("This is a delete request");
+})
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Something is broken");
 })
 
 app.listen(PORT, () => {
