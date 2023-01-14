@@ -83,3 +83,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
 console.log(`app running on port ${PORT}...`);
 })
+
+
+//to debug this app please run the following command
+//$env:DEBUG='express:*'; node index.js
