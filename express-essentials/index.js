@@ -1,5 +1,5 @@
 import express from 'express';
-import data from './data/mock.json' assert {type: 'json'};
+// import data from './data/mock.json' assert {type: 'json'};
 
 const app = express();
 const PORT = process.env.PORT || 9000;
